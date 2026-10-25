@@ -1,5 +1,6 @@
 package no.simon.inquiries.controller;
 
+import jakarta.validation.Valid;
 import no.simon.inquiries.dto.CreateInquiryRequest;
 import no.simon.inquiries.dto.UpdateStatusRequest;
 import no.simon.inquiries.model.Inquiry;
@@ -22,7 +23,7 @@ public class InquiryController {
     //POST /api/inquiries
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Inquiry create(@RequestBody CreateInquiryRequest request) {
+    public Inquiry create(@Valid @RequestBody CreateInquiryRequest request) {
         return service.create(request.name(), request.message());
     }
 
@@ -41,7 +42,7 @@ public class InquiryController {
     // PATCH /api/inquiries/5/status
     @PatchMapping("/{id}/status")
     public Inquiry updateStatus(@PathVariable Long id,
-                                @RequestBody UpdateStatusRequest request) {
+                                @Valid @RequestBody UpdateStatusRequest request) {
         return service.updateStatus(id, request.status());
     }
 }
